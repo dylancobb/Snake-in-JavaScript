@@ -1,0 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: hsl(220, 30%, 20%);
+    color: azure;
+    text-align: center;
+    font-family: "Source Code Pro", sans-serif;
+    font-weight: 700;
+    font-size:medium;
+}
+
+h1 {
+    font-size: 32pt;
+}
