@@ -9,14 +9,19 @@ let context;
 let snakeX = blockSize * 5;
 let snakeY = blockSize * 5;
 
+// positive X = move RIGHT, positive Y = move DOWN
 let velocityX = 0;
 let velocityY = 0;
 
+// snake body is stored as an array of coordinates
 let snakeBody = [];
 
 // snake food
 let foodX;
 let foodY;
+
+// game ending condition
+let gameOver = false;
 
 // initialises the game board / snake / food
 window.onload = function() {
@@ -34,6 +39,10 @@ window.onload = function() {
 
 // updates the board
 function update() {
+    if (gameOver) {
+        return;
+    }
+
     // board stuff
     context.fillStyle = "black";
     context.fillRect(0, 0, board.width, board.height);
@@ -70,6 +79,20 @@ function update() {
             context.fillStyle = "limegreen";
         }
         context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
+    }
+
+    // gameOver conditions
+    if (snakeX < 0 || snakeX > blockSize * (cols - 1)
+        || snakeY < 0 || snakeY > blockSize * (rows - 1)) {
+            gameOver = true;
+            gameOverMessage();
+    }
+
+    for (let i = 0; i < snakeBody.length; i++) {
+        if (snakeX === snakeBody[i][0] && snakeY === snakeBody[i][1]) {
+            gameOver = true;
+            gameOverMessage();
+        }
     }
 }
 
