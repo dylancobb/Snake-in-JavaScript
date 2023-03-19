@@ -23,7 +23,8 @@ window.onload = function() {
     board = document.getElementById("board");
     board.height = rows * blockSize;
     board.width = cols * blockSize;
-    context = board.getContext("2d"); //used for drawing on the board
+    //used for drawing on the board
+    context = board.getContext("2d");
 
     placeFood();
     // change direction on key press
@@ -46,11 +47,30 @@ function update() {
         placeFood();
     }
 
+    // snake body segments move snake-ily
+    for (let i = snakeBody.length - 1; i > 0; i--) {
+        snakeBody[i] = snakeBody[i - 1];
+    }
+    if (snakeBody.length) {
+        snakeBody[0] = [snakeX, snakeY];
+    }
+
     // snake stuff
     context.fillStyle = "lime";
+    // move by current velocity every update frame
     snakeX += velocityX * blockSize;
     snakeY += velocityY * blockSize;
+    // draw snake head
     context.fillRect(snakeX, snakeY, blockSize, blockSize);
+    // draw snake body
+    for (let i = 0; i < snakeBody.length; i++) {
+        if (i % 2) {
+            context.fillStyle = "lime";
+        } else {
+            context.fillStyle = "limegreen";
+        }
+        context.fillRect(snakeBody[i][0], snakeBody[i][1], blockSize, blockSize);
+    }
 }
 
 // changes the direction of the snake head on pressing a key
