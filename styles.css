@@ -14,3 +14,32 @@ body {
 h1 {
     font-size: 32pt;
 }
+
+#game-over {
+    position: absolute;
+    background-color: azure;
+    color: black;
+    top: 150px;
+    left: calc(50% - 250px);
+    height: 300px;
+    width: 500px;
+    border-radius: 4px;
+    display: none;
+}
+
+#restart-button {
+    background-color: hsl(220, 30%, 20%);
+    color: azure;
+    padding: 15px;
+    width: 100px;
+    margin: auto;
+    border-radius: 4px;
+}
+
+#restart-button:hover {
+    background-color: hsl(220, 30%, 30%);
+}
+
+#restart-button:active {
+    background-color: hsl(220, 30%, 40%);
+}

@@ -1,7 +1,7 @@
 // board
-let blockSize = 25;
+let blockSize = 20;
 let rows = 20;
-let cols = 20;
+let cols = 30;
 let board;
 let context;
 
@@ -22,9 +22,17 @@ let foodY;
 
 // game ending condition
 let gameOver = false;
+let gameOverBox = document.getElementById("game-over");
+
+// score tracking
+let scoreDisplay = document.getElementById("score");
+let score = 0;
+scoreDisplay.innerHTML = "Score: " + score;
+let highScoreDisplay = document.getElementById("high-score");
+let highScore = 0;
 
 // initialises the game board / snake / food
-window.onload = function() {
+window.onload = () => {
     board = document.getElementById("board");
     board.height = rows * blockSize;
     board.width = cols * blockSize;
@@ -40,6 +48,7 @@ window.onload = function() {
 // updates the board
 function update() {
     if (gameOver) {
+        gameOverMessage();
         return;
     }
 
@@ -54,6 +63,8 @@ function update() {
     if (snakeX === foodX && snakeY === foodY) {
         snakeBody.push(foodX, foodY);
         placeFood();
+        score++;
+        scoreDisplay.innerHTML = "Score: " + score;
     }
 
     // snake body segments move snake-ily
@@ -85,13 +96,11 @@ function update() {
     if (snakeX < 0 || snakeX > blockSize * (cols - 1)
         || snakeY < 0 || snakeY > blockSize * (rows - 1)) {
             gameOver = true;
-            gameOverMessage();
     }
 
     for (let i = 0; i < snakeBody.length; i++) {
         if (snakeX === snakeBody[i][0] && snakeY === snakeBody[i][1]) {
             gameOver = true;
-            gameOverMessage();
         }
     }
 }
@@ -117,4 +126,26 @@ function changeDirection(e) {
 function placeFood() {
     foodX = Math.floor(Math.random() * cols) * blockSize;
     foodY = Math.floor(Math.random() * rows) * blockSize;
+}
+
+// show when game over conditions are met
+function gameOverMessage() {
+    gameOverBox.style.display = "block";
+}
+
+// reinitialise all variables
+function restartGame() {
+    gameOverBox.style.display = "none";
+    snakeX = blockSize * 5;
+    snakeY = blockSize * 5;
+    velocityX = 0;
+    velocityY = 0;
+    snakeBody = [];
+    gameOver = false;
+    if (score > highScore) {
+        highScore = score;
+        highScoreDisplay.innerHTML = "Top Score: " + highScore;
+    }
+    score = 0;
+    scoreDisplay.innerHTML = "Score: " + score;
 }

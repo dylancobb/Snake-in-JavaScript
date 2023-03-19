@@ -10,7 +10,6 @@
 		<!-- Stylesheets and Scripts -->
 		<link rel="stylesheet" href="styles.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source Code Pro:400,700">
-		<script src="scripts.js"></script>
 	</head>
 	<body>
 		<header>
@@ -18,8 +17,13 @@
 		</header>
 		<main>
 			<canvas id="board"></canvas>
+			<h2 id="score"></h2>
+			<h2 id="high-score"></h2>
 		</main>
-		<footer>
-		</footer>
+		<div id="game-over">
+			<h1>Game Over!</h1>
+			<p id="restart-button" onclick="restartGame()">Restart</p>
+		</div>
+		<script src="scripts.js"></script>
 	</body>
 </html>
